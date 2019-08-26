@@ -24,7 +24,7 @@ TARGET_2ND_CPU_VARIANT := kryo
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := false
-TARGET_NO_RECOVERY := true
+#TARGET_NO_RECOVERY := true
 TARGET_RECOVERY_FSTAB := device/google/marlin/fstab.common
 BOARD_USES_RECOVERY_AS_BOOT := true
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
@@ -198,18 +198,56 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := device/google/marlin/device_framew
 # Exclude serif fonts for saving system.img size.
 EXCLUDE_SERIF_FONTS := true
 
+# TWRP
 TW_THEME := portrait_hdpi
-TW_INCLUDE_FB2PNG := true
+TW_DEVICE_VERSION := $(shell date +"%m/%d")
 BOARD_SUPPRESS_SECURE_ERASE := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_DEFAULT_BRIGHTNESS := "80"
-TW_INCLUDE_CRYPTO := true
+TW_DEFAULT_BRIGHTNESS := "5"
 AB_OTA_UPDATER := true
-TWRP_INCLUDE_LOGCAT := true
-TARGET_USES_LOGD := true
-TW_USE_TOOLBOX := true
+BOARD_HAS_NO_REAL_SDCARD := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
+#TARGET_USES_LOGD := true
+#TWRP_INCLUDE_LOGCAT := true
+TW_SCREEN_BLANK_ON_BOOT := true
+TW_INCLUDE_REPACKTOOLS := true
+TW_USE_TOOLBOX := true
+#TW_EXCLUDE_SUPERSU := true
+TW_EXCLUDE_TWRPAPP := true
+USE_RECOVERY_INSTALLER := true
+RECOVERY_INSTALLER_PATH := device/google/marlin/installer
+#LZMA_RAMDISK_TARGETS := recovery
+
+# A/B updater updatable partitions list. Keep in sync with the partition list
+# with "_a" and "_b" variants in the device. Note that the vendor can add more
+# more partitions to this list for the bootloader and radio.
+AB_OTA_PARTITIONS += \
+    boot \
+    system \
+    vendor \
+    vbmeta \
+    dtbo
+
+# Encryption
+PLATFORM_SECURITY_PATCH := 2025-12-31
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_FBE := true
+TW_INCLUDE_CRYPTO_FBE := true
+
+# Original TWRP Settings
+#TW_THEME := portrait_hdpi
+#TW_INCLUDE_FB2PNG := true
+#BOARD_SUPPRESS_SECURE_ERASE := true
+#TARGET_RECOVERY_QCOM_RTC_FIX := true
+#TW_INPUT_BLACKLIST := "hbtp_vm"
+#TW_DEFAULT_BRIGHTNESS := "80"
+#TW_INCLUDE_CRYPTO := true
+#AB_OTA_UPDATER := true
+#TWRP_INCLUDE_LOGCAT := true
+#TARGET_USES_LOGD := true
+#TW_USE_TOOLBOX := true
+#TW_EXCLUDE_DEFAULT_USB_INIT := true
 #TARGET_RECOVERY_DEVICE_MODULES += android.hardware.boot@1.0 android.hardware.weaver@1.0
 #TW_RECOVERY_ADDITIONAL_RELINK_FILES := out/target/product/marlin/system/lib64/android.hardware.boot@1.0.so out/target/product/marlin/system/lib64/android.hardware.weaver@1.0.so
 #TARGET_RECOVERY_DEVICE_MODULES += strace debuggerd valgrind
